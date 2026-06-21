@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — FlappyPDF</title>
+  <meta name="description" content="Privacy Policy for FlappyPDF. Learn how our browser-based PDF tools process your data completely locally without server uploads." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.flappypdf.com/privacy.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.flappypdf.com/privacy.html" />
+  <meta property="og:title" content="Privacy Policy — FlappyPDF" />
+  <meta property="og:description" content="Learn about our privacy-first architecture where document processing happens entirely within your local browser sandbox." />
+  <meta property="og:image" content="https://www.flappypdf.com/og-image.png" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0f; --surface: #141416; --surface2: #1c1c1f;
+      --border: rgba(255,255,255,0.07); --text: #f0ede8;
+      --muted: #7a7775; --accent: #f5a623; --accent2: #4ecdc4;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    .syne { font-family: 'Syne', sans-serif; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.10; pointer-events: none; z-index: 0; }
+
+    /* Side Ad Columns Structure */
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 160px 1fr 160px;
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .ad-col {
+      position: sticky;
+      top: 80px;
+      padding: 16px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+    }
+    .ad-unit {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      line-height: 1.4;
+      padding: 8px;
+    }
+    .ad-unit-tall { width: 140px; height: 280px; }
+    .ad-unit-sq { width: 140px; height: 140px; }
+    .main-col { min-width: 0; }
+
+    /* Policy styling formatting rules */
+    .policy-content h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.4rem; color: var(--text); margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .policy-content h3 { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 1.15rem; color: var(--text); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+    .policy-content p { font-size: 0.95rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+    .policy-content ul { margin-bottom: 1.25rem; row-gap: 0.5rem; }
+    .policy-content li { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.5rem; padding-left: 1.25rem; position: relative; }
+    .policy-content li::before { content: "•"; color: var(--accent); position: absolute; left: 0; font-weight: bold; }
+
+    @media (max-width: 1100px) {
+      .page-wrapper { grid-template-columns: 120px 1fr 120px; }
+      .ad-unit-tall { width: 110px; height: 240px; }
+      .ad-unit-sq { width: 110px; height: 110px; }
+    }
+    @media (max-width: 860px) {
+      .page-wrapper { grid-template-columns: 1fr; }
+      .ad-col { display: none; }
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <div class="blob w-[400px] h-[400px] bg-[--accent] top-[10%] left-[-150px]"></div>
+  <div class="blob w-[400px] h-[400px] bg-[--accent2] bottom-[20%] right-[-150px]"></div>
+
+  <nav class="border-b border-[rgba(255,255,255,0.07)] bg-[#0d0d0f]/80 backdrop-blur-xl sticky top-0 z-50 px-4 md:px-12 py-4 flex items-center justify-between">
+    <a href="index.html" class="syne font-extrabold text-xl md:text-2xl tracking-tight flex items-center gap-2.5">
+      <div class="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center text-base md:text-lg shadow-lg">🐦</div>
+      Flappy<span class="text-[--accent]">PDF</span>
+    </a>
+    <a href="index.html" class="text-xs font-semibold bg-white/5 hover:bg-white/10 border border-white/10 px-4 py-2 rounded-xl transition-all">
+      ← Back to Tools
+    </a>
+  </nav>
+
+  <div class="page-wrapper flex-grow w-full px-2 md:px-4 mt-8 md:mt-12">
+
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+    <main class="main-col relative z-10 px-4 sm:px-6 max-w-3xl mx-auto w-full">
+      
+      <header class="border-b border-[--border] pb-6 mb-8">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-amber-500/10 border border-amber-500/20 text-[--accent] rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+          🛡️ Privacy First Framework
+        </div>
+        <h1 class="syne font-black text-3xl sm:text-4xl md:text-5xl tracking-tight mb-3">
+          Privacy Policy
+        </h1>
+        <p class="text-xs font-mono uppercase tracking-widest text-[--muted]">
+          Last Updated: June 15, 2026 [cite: 2]
+        </p>
+      </header>
+
+      <article class="policy-content text-[--text]">
+        <p>
+          Welcome to <strong>FlappyPDF</strong> (“Company”, “we”, “us”, or “our”). We operate the website located at <a href="https://flappypdf.com" class="text-[--accent] hover:underline">FlappyPDF.com</a> (the “Service”). [cite: 3]
+        </p>
+        <p>
+          FlappyPDF is a privacy-first, decentralized multi-tool document utility designed with an innovative hybrid infrastructure. [cite: 4] Our primary file utilities (including image-to-PDF and PDF-to-image conversion) utilize high-leverage client-side execution frameworks (jsPDF, pdfjs-dist). [cite: 5] This means that the processing of your documents happens entirely within your local browser sandbox; [cite: 6] your files are not transmitted, uploaded, or stored on our servers. [cite: 7]
+        </p>
+        <p>
+          To ensure universal compliance with international data protection frameworks, this Privacy Policy has been structurally optimized to meet the legal mandates of the <strong>European Union General Data Protection Regulation (GDPR)</strong>, the <strong>California Consumer Privacy Act (CCPA/CPRA)</strong>, the <strong>Canadian Personal Information Protection and Electronic Documents Act (PIPEDA)</strong>, the <strong>UK Data Protection Act</strong>, and other applicable global data privacy regulations. [cite: 8]
+        </p>
+
+        <h2>1. The Architectural Zero-Trace Principle (Document Processing) [cite: 9]</h2>
+        <p>
+          Unlike legacy cloud-based file convertors that force user uploads to remote servers, FlappyPDF applies a strict <em>Privacy by Design & Default</em> data framework. [cite: 10]
+        </p>
+        <ul>
+          <li><strong>Local Execution:</strong> When you drag, drop, or select files for core tools, the underlying software files execute via client-side JavaScript. [cite: 11]</li>
+          <li><strong>Zero File Exfiltration:</strong> No payloads containing your document data, textual contents, metadata, or embedded graphics are sent over the network to FlappyPDF infrastructure during client-side operations. [cite: 12]</li>
+          <li><strong>The "Offline Test" Guarantee:</strong> Users can formally verify this local compliance by loading our conversion utility tool page, completely disconnecting their device from the internet (Airplane Mode), and processing a conversion. [cite: 13] The operation will execute locally with zero network dependencies. [cite: 14]</li>
+        </ul>
+
+        <h2>2. Data We Actually Collect [cite: 15]</h2>
+        <p>
+          While your files remain entirely your own, we do process highly limited categories of information to maintain security, execute authenticated cloud tasks, prevent automated server-abuse, and process subscription transactions. [cite: 16]
+        </p>
+        
+        <h3>A. Personally Identifiable Information (PII) [cite: 17]</h3>
+        <p>
+          We only collect explicit personal information when you intentionally provide it to us. [cite: 18] This occurs when you register an account, purchase a premium subscription, or request support: [cite: 19]
+        </p>
+        <ul>
+          <li><strong>Account Infrastructure Data:</strong> Email address, user identification tokens, and account display name. [cite: 20] This data is managed securely via our backend architecture (Supabase / PostgreSQL). [cite: 21]</li>
+          <li><strong>Transactional Billing Data:</strong> Payment processing is handled strictly through decoupled, PCI-compliant third-party payment gateways (e.g., Stripe). [cite: 22] FlappyPDF never reads, retains, or stores raw credit card details, CVVs, or billing credentials on its own servers. [cite: 23]</li>
+        </ul>
+
+        <h3>B. Automated Operational Log Files [cite: 24]</h3>
+        <p>
+          To manage overall platform stability, prevent malicious traffic spikes (DDoS mitigations), and monitor Core Web Vitals, our servers and global Content Delivery Networks (CDNs) automatically collect limited technical operational metrics: [cite: 25]
+        </p>
+        <ul>
+          <li>Internet Protocol (IP) Address (fully anonymized or hashed where legally required). [cite: 26]</li>
+          <li>Browser type, user-agent configuration, and operating system layouts. [cite: 27]</li>
+          <li>Date and time-stamps of network-level connections. [cite: 28]</li>
+          <li>Anonymized telemetry regarding service errors or broken internal operational workers. [cite: 29]</li>
+        </ul>
+
+        <h2>3. Legal Bases for Processing Data (GDPR & International Frameworks) [cite: 30]</h2>
+        <p>
+          If you reside within the European Economic Area (EEA), the United Kingdom, or similar legal jurisdictions, our processing of your restricted personal data relies on clear legal foundations under Article 6 of the GDPR: [cite: 31]
+        </p>
+        <ul>
+          <li><strong>Consent:</strong> You give us explicit permission to process data (e.g., creating an account or subscribing to our newsletter). [cite: 32]</li>
+          <li><strong>Performance of a Contract:</strong> Processing your email address and transaction state is mandatory to deliver premium account tiers and services. [cite: 33]</li>
+          <li><strong>Legitimate Interests:</strong> We preserve server security, defend our systems against automated script bots or scrapers, monitor network performance, and optimize our dark-themed minimalist user interface. [cite: 34]</li>
+        </ul>
+
+        <h2>4. Data Retention and Disposal Timelines [cite: 35]</h2>
+        <ul>
+          <li><strong>User Documents:</strong> Because files are processed entirely on the client side, our servers maintain <em>zero (0) seconds</em> of retention. [cite: 36] Your files exist only in your browser’s volatile memory sandbox and are fully discarded the moment the tab or browser window is closed. [cite: 37]</li>
+          <li><strong>Account & Profile Data:</strong> We retain your PII (email, profile configurations) for as long as your account remains open. [cite: 38]</li>
+          <li><strong>Account Deletion:</strong> You can trigger a full database wipe at any time. [cite: 39] Upon receiving an account deletion request via your user settings console or via legal intake channels, all corresponding profile rows stored inside our database infrastructure are completely and permanently purged within thirty (30) days, in strict compliance with the EDPB Article 17 enforcement standards. [cite: 40]</li>
+        </ul>
+
+        <h2>5. Cookies and Cookie Preferences [cite: 41]</h2>
+        <p>
+          FlappyPDF uses a minimal cookie footprint to avoid consent fatigue while providing an optimal web experience. [cite: 42]
+        </p>
+        <ul>
+          <li><strong>Essential Functional Cookies:</strong> These are strictly necessary cookies utilized to manage secure user authentication tokens, handle persistent session tracking, and remember your dark theme preferences (#0d0d0f). [cite: 43]</li>
+          <li><strong>Analytics & Performance Web Beacons:</strong> We utilize fully privacy-compliant, anonymized telemetry utilities to gauge click patterns, page tracking, and site load speeds. [cite: 44]</li>
+          <li><strong>Opt-Out Mechanisms:</strong> In compliance with global frameworks, our cookie infrastructure includes a clear, single-click preference panel letting you opt out of any non-essential cookies. [cite: 45] Your refusal state is strictly honored for a minimum of six consecutive months before asking again. [cite: 46]</li>
+        </ul>
+
+        <h2>6. Transborder Data Transfers & Third-Party Subsurface Processors [cite: 47]</h2>
+        <p>
+          To maintain high global availability and fast loading speeds, FlappyPDF distributes static application resources across international Content Delivery Networks. [cite: 48]
+        </p>
+        <ul>
+          <li><strong>Infrastructure Partners:</strong> Our primary structural servers, database handlers, and authorization states are powered securely via infrastructure like Supabase and major cloud hosting networks. [cite: 49]</li>
+          <li><strong>Data Safeguards:</strong> Whenever any personal metadata moves across international borders (e.g., outside the EEA, UK, or Canada), it is continuously protected by strict technical protocols, including the European Commission’s <em>Standard Contractual Clauses (SCCs)</em> and matching data protection agreements. [cite: 50]</li>
+        </ul>
+
+        <h2>7. Your Jurisdiction-Specific Privacy Rights [cite: 51]</h2>
+        <p>
+          Regardless of where you reside, FlappyPDF supports comprehensive data autonomy. [cite: 52] You can exercise these rights directly through your account dashboard or by contacting our legal compliance team. [cite: 53]
+        </p>
+
+        <h3>A. European Union & United Kingdom Users (GDPR / UK Data Protection Act) [cite: 54]</h3>
+        <ul>
+          <li><strong>Right of Access & Portability:</strong> Request a copy of all PII metadata we hold for you in a structured, clean, machine-readable layout. [cite: 55]</li>
+          <li><strong>Right to Erasure ("Right to be Forgotten"):</strong> Request that we wipe all tracking histories and registered database records associated with your email. [cite: 56]</li>
+          <li><strong>Right to Restrict or Object:</strong> Halt processing of your personal profile data for direct marketing goals. [cite: 57]</li>
+        </ul>
+
+        <h3>B. California Consumers (CCPA / CPRA / "Delete Act" Compliance) [cite: 58]</h3>
+        <ul>
+          <li><strong>Right to Know & Access:</strong> Uncover the exact categories of personal data collected over the preceding 12 months. [cite: 59]</li>
+          <li><strong>No Sale or Share of Personal Data:</strong> FlappyPDF <em>does not sell, trade, rent, or lease</em> your personal details or profile analytics to third-party data brokers or ad networks. [cite: 60] We do not share data for cross-contextual behavioral advertising. [cite: 61]</li>
+          <li><strong>Non-Discrimination:</strong> We will never penalize or discriminate against any user who chooses to exercise their legal privacy rights. [cite: 62]</li>
+        </ul>
+
+        <h3>C. Canadian Residents (PIPEDA & Quebec Law 25) [cite: 63]</h3>
+        <ul>
+          <li><strong>Accountability:</strong> We maintain absolute internal visibility over any billing records or access histories processed by our support team. [cite: 64]</li>
+          <li><strong>Explicit Consent Control:</strong> You retain the complete right to withdraw consent for any supplemental communication channels at any time. [cite: 65]</li>
+        </ul>
+
+        <h2>8. Enterprise-Grade Security Measures [cite: 66]</h2>
+        <p>
+          FlappyPDF deploys strict physical, administrative, and technical safeguards to keep all account records safe: [cite: 67]
+        </p>
+        <ul>
+          <li><strong>End-to-End Encryption:</strong> All network traffic moving to or from FlappyPDF occurs strictly over highly encrypted Hypertext Transfer Protocol Secure (HTTPS) channels utilizing standard TLS protocols. [cite: 68]</li>
+          <li><strong>Rate-Limiting Protection:</strong> To preserve system availability and stop malicious automated attacks, our API architecture enforces a strict rate-limiting protocol at the network boundary layer. [cite: 69] Free/guest sessions are capped at 5 external API operations per hour to block bad actors. [cite: 70]</li>
+          <li><strong>Zero-Payload Logs:</strong> Our server logs are continually audited to guarantee that no user-uploaded file properties, image payloads, or document fragments are ever recorded. [cite: 71]</li>
+        </ul>
+
+        <h2>9. Updates to this Privacy Policy [cite: 72]</h2>
+        <p>
+          We may update this legal Privacy Policy over time to mirror changes in our multi-tool system updates, evolving server setups, or updating global privacy laws. [cite: 73] Any modifications will be declared directly on this page alongside an updated "Last Updated" timestamp. [cite: 74] We encourage you to review this policy periodically to stay informed about how we protect your privacy. [cite: 75]
+        </p>
+
+        <h2>10. Legal Contact Information [cite: 76]</h2>
+        <p>
+          For any questions about your data privacy rights, to issue formal data access or deletion requests, or to contact our data protection lead, please reach out to us at: [cite: 77]
+        </p>
+        
+        <div class="bg-[--surface2] border border-[--border] p-6 rounded-2xl mt-4 relative overflow-hidden">
+          <div class="absolute -right-4 -bottom-4 text-6xl opacity-10 pointer-events-none">🛡️</div>
+          <h4 class="font-bold text-base text-[--accent] mb-2">FlappyPDF Compliance Operations [cite: 78]</h4>
+          <p class="text-sm mb-1 text-[--text]">
+            <strong>Email:</strong> <a href="mailto:privacy@flappypdf.com" class="hover:underline text-[--accent2]">privacy@flappypdf.com</a> [cite: 78]
+          </p>
+          <p class="text-sm text-[--text]">
+            <strong>Legal Intake URL:</strong> <a href="https://flappypdf.com/privacy" target="_blank" class="hover:underline text-[--accent2]">flappypdf.com/privacy</a> [cite: 79]
+          </p>
+        </div>
+      </article>
+
+    </main>
+
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+  </div>
+
+  <footer class="border-t border-[--border] py-6 text-center text-xs text-[--muted] font-medium mt-auto bg-[#0d0d0f] relative z-10">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 px-4">
+      <span>&copy; 2026 FlappyPDF. All rights reserved.</span>
+      <a href="index.html" class="hover:text-[--text] transition-colors">Home Tools</a>
+      <a href="terms.html" class="hover:text-[--text] transition-colors">Terms of Use</a>
+    </div>
+  </footer>
+
+</body>
+</html>

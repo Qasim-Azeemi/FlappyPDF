@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free PDF to Image Converter — Extract JPG, PNG, WEBP Online | FlappyPDF</title>
+  <meta name="description" content="Extract every page from a PDF as a JPG, PNG, or WEBP image — free, private, and 100% in your browser. No uploads, no sign-up required." />
+  <meta name="keywords" content="PDF to image, PDF to JPG, PDF to PNG, PDF to WEBP, extract PDF pages, convert PDF to image online, free PDF converter, offline PDF tool" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.flappypdf.com/pdf-to-img.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.flappypdf.com/pdf-to-img.html" />
+  <meta property="og:title" content="Free PDF to Image Converter | FlappyPDF" />
+  <meta property="og:description" content="Extract every page from a PDF as a JPG, PNG, or WEBP image. No uploads, no sign-up, completely private." />
+  <meta property="og:image" content="https://www.flappypdf.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free PDF to Image Converter | FlappyPDF" />
+  <meta name="twitter:description" content="Extract every page from a PDF as a JPG, PNG, or WEBP image. 100% private." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "PDF to Image Converter — FlappyPDF",
+    "url": "https://www.flappypdf.com/pdf-to-img.html",
+    "description": "Extract every page from a PDF as a JPG, PNG, or WEBP image for free in your browser.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "browserRequirements": "Requires JavaScript"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0d0d0f; --surface: #141416; --surface2: #1c1c1f;
+      --border: rgba(255,255,255,0.07); --text: #f0ede8;
+      --muted: #7a7775; --accent: #4ecdc4; --accent2: #ff6b35;
+    }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; overflow-x: hidden; }
+    body::before {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    }
+    .syne { font-family: 'Syne', sans-serif; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: 0.15; pointer-events: none; z-index: 0; }
+
+    .upload-box {
+      border: 2px dashed var(--border); background: var(--surface);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative; overflow: hidden;
+    }
+    .upload-box::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(800px circle at var(--x, 0px) var(--y, 0px), rgba(78,205,196,0.06), transparent 40%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .upload-box:hover::before { opacity: 1; }
+    .upload-box:hover, .upload-box.drag-over {
+      border-color: rgba(78,205,196,0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(78,205,196,0.1);
+    }
+
+    .switch-container {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 4px; border-radius: 12px; display: inline-flex;
+    }
+    .switch-option {
+      padding: 6px 14px; font-size: 12px; font-weight: 700;
+      border-radius: 8px; cursor: pointer; text-transform: uppercase;
+      letter-spacing: 0.05em; transition: all 0.25s ease; color: var(--muted);
+    }
+    .switch-option.active {
+      background: var(--surface2); color: var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.03);
+    }
+    .switch-option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .faq-item { border: 1px solid var(--border); background: var(--surface); transition: all 0.3s ease; }
+    .faq-item.open { border-color: rgba(255,255,255,0.15); background: var(--surface2); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-item.open .faq-icon { transform: rotate(180deg); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); padding: 12px 20px; border-radius: 12px;
+      font-size: 13px; font-weight: 600; z-index: 10000;
+      transition: transform 0.35s cubic-bezier(0.16,1,0.3,1), opacity 0.35s;
+      opacity: 0; white-space: nowrap; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    .toast.success { border-color: rgba(78,205,196,0.3); color: var(--accent); }
+    .toast.error { border-color: rgba(239,68,68,0.3); color: #f87171; }
+
+    /* Side Ad Columns */
+    .page-wrapper {
+      display: grid;
+      grid-template-columns: 160px 1fr 160px;
+      gap: 0;
+      max-width: 1400px;
+      margin: 0 auto;
+      align-items: start;
+    }
+    .ad-col {
+      position: sticky; top: 80px;
+      padding: 16px 8px;
+      display: flex; flex-direction: column;
+      gap: 12px; align-items: center;
+    }
+    .ad-unit {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; display: flex; align-items: center;
+      justify-content: center; text-align: center;
+      color: var(--muted); font-size: 10px; font-weight: 600;
+      letter-spacing: 0.05em; text-transform: uppercase;
+      line-height: 1.4; padding: 8px;
+    }
+    .ad-unit-tall { width: 140px; height: 280px; }
+    .ad-unit-sq { width: 140px; height: 140px; }
+    .main-col { min-width: 0; }
+
+    @media (max-width: 1100px) {
+      .page-wrapper { grid-template-columns: 120px 1fr 120px; }
+      .ad-unit-tall { width: 110px; height: 240px; }
+      .ad-unit-sq { width: 110px; height: 110px; }
+    }
+    @media (max-width: 860px) {
+      .page-wrapper { grid-template-columns: 1fr; }
+      .ad-col { display: none; }
+    }
+
+    .mobile-ad-bar { display: none; }
+    @media (max-width: 860px) {
+      .mobile-ad-bar {
+        display: flex; align-items: center; justify-content: center;
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 12px; height: 70px;
+        color: var(--muted); font-size: 10px; font-weight: 600;
+        letter-spacing: 0.05em; text-transform: uppercase;
+        margin: 0 16px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .upload-box, .upload-box:hover { transform: none; transition: none; }
+    }
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://www.flappypdf.com/pdf-to-img.html#webapp",
+      "url": "https://www.flappypdf.com/pdf-to-img.html",
+      "name": "Free PDF to Image Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Supports Web Workers and HTML5 Canvas.",
+      "description": "Extract every individual page from a PDF document as a high-quality JPG, PNG, or WEBP image—free, private, and processed locally.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://www.flappypdf.com/pdf-to-img.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does the PDF to Image tool extract my pages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool reads your PDF inside your browser via client-side scripts (pdfjs-dist), renders each layout onto virtual canvas configurations, and packs them into a single downloadable ZIP file automatically without cloud delays."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a limit on file size or page count?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because processing happens directly on your device using hardware resources, there are no artificial tool limits, though processing speed depends on your local device RAM and CPU capacity."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <div class="blob w-[600px] h-[600px] bg-[--accent] top-[-150px] right-[-200px]"></div>
+
+  <nav class="border-b border-[rgba(255,255,255,0.07)] bg-[#0d0d0f]/80 backdrop-blur-xl sticky top-0 z-50 px-4 md:px-12 py-4 flex items-center justify-between">
+    <a href="index.html" class="syne font-extrabold text-xl md:text-2xl tracking-tight flex items-center gap-2.5">
+      <div class="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-br from-teal-400 to-emerald-500 rounded-xl flex items-center justify-center text-base md:text-lg shadow-lg shadow-teal-500/10">🐦</div>
+      Flappy<span class="text-[--accent]">PDF</span>
+    </a>
+    <a href="index.html" class="text-sm text-[--muted] hover:text-[--text] transition-colors font-medium">← All Tools</a>
+  </nav>
+
+  <!-- Mobile Ad Bar -->
+  <div class="mobile-ad-bar mt-4" aria-label="Advertisement">Ad Space (320×50)</div>
+
+  <div class="page-wrapper flex-grow w-full px-2 md:px-4 mt-6 md:mt-10">
+
+    <!-- Left Ad -->
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-col relative z-10 px-2 sm:px-4 pb-12">
+      <header class="text-center mb-8 md:mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-teal-500/10 border border-teal-500/20 text-[--accent] rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+          ⚡ Runs in Your Browser
+        </div>
+        <h1 class="syne font-black text-3xl sm:text-4xl md:text-5xl tracking-tight mb-4 leading-tight">Convert PDF to <span class="bg-gradient-to-r from-[--accent] to-[#2af598] bg-clip-text text-transparent">Images</span></h1>
+        <p class="text-[--muted] max-w-xl mx-auto text-sm md:text-base leading-relaxed">Upload a PDF and get every page as a high-quality JPG, PNG, or WEBP image — instantly, privately, for free.</p>
+      </header>
+
+      <div class="bg-[--surface] border border-[--border] rounded-2xl p-4 md:p-8 shadow-2xl max-w-3xl mx-auto">
+
+        <!-- Drop Zone -->
+        <div id="drop-zone" class="upload-box rounded-xl p-8 md:p-12 text-center cursor-pointer group" role="button" tabindex="0" aria-label="Click or drop a PDF to upload" onkeydown="if(event.key==='Enter'||event.key===' ')document.getElementById('file-input').click()">
+          <input type="file" id="file-input" accept="application/pdf" class="hidden" aria-label="Upload PDF file">
+          <div class="flex flex-col items-center space-y-3 md:space-y-4">
+            <div class="w-14 h-14 md:w-16 md:h-16 bg-[--surface2] border border-[--border] rounded-2xl flex items-center justify-center text-2xl md:text-3xl group-hover:-translate-y-1 transition-transform duration-300" aria-hidden="true">📄</div>
+            <p class="text-base md:text-xl font-bold tracking-tight">Drop your PDF here, or <span class="text-[--accent]">browse files</span></p>
+            <p class="text-xs text-[--muted]">PDF files only · Max 150MB</p>
+          </div>
+        </div>
+
+        <!-- Action Panel -->
+        <div id="action-panel" class="mt-6 md:mt-8 hidden space-y-5 bg-[--surface2]/30 border border-[--border] p-4 md:p-6 rounded-xl">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6">
+            <div class="min-w-0">
+              <h2 id="pdf-file-name" class="syne font-bold text-sm md:text-base truncate max-w-[220px] md:max-w-[280px]">document.pdf</h2>
+              <p id="pdf-page-count" class="text-xs text-[--muted] mt-0.5">Reading PDF…</p>
+            </div>
+            <div class="flex flex-col gap-2 shrink-0">
+              <span class="text-[10px] font-bold text-[--muted] uppercase tracking-wider">Output Format</span>
+              <div class="switch-container" id="format-switch-box" role="radiogroup" aria-label="Output image format">
+                <div class="switch-option active" data-value="jpeg" role="radio" aria-checked="true" tabindex="0">JPG</div>
+                <div class="switch-option" data-value="png" role="radio" aria-checked="false" tabindex="0">PNG</div>
+                <div class="switch-option" data-value="webp" role="radio" aria-checked="false" tabindex="0">WEBP</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="progress-container" class="hidden space-y-2 border-t border-[--border] pt-4">
+            <div class="w-full bg-[--surface] rounded-full h-1.5 overflow-hidden border border-[--border]" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+              <div id="progress-bar" class="bg-gradient-to-r from-[--accent] to-emerald-400 h-full rounded-full transition-all duration-200" style="width:0%"></div>
+            </div>
+            <p id="progress-text" class="text-xs text-[--muted] text-right" aria-live="polite">Starting…</p>
+          </div>
+
+          <div class="flex gap-3 justify-end pt-3 md:pt-4 border-t border-[--border]">
+            <button id="cancel-btn" class="px-4 md:px-5 py-2 bg-[--surface] border border-[--border] rounded-xl text-sm text-[--muted] hover:text-[--text] transition-colors">Cancel</button>
+            <button id="convert-btn" class="px-5 md:px-6 py-2 bg-[--accent] hover:bg-teal-400 text-[#0d0d0f] font-bold rounded-xl text-sm transition-all shadow-lg">Extract Images 🚀</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- How It Works -->
+      <section class="max-w-3xl mx-auto mt-14 md:mt-20" aria-labelledby="how-heading">
+        <h2 id="how-heading" class="syne font-extrabold text-xl md:text-2xl tracking-tight mb-6 text-center">How It Works</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-[--surface] border border-[--border] p-5 rounded-xl">
+            <div class="text-2xl mb-3" aria-hidden="true">1️⃣</div>
+            <h3 class="font-bold text-sm mb-1">Upload your PDF</h3>
+            <p class="text-xs text-[--muted] leading-relaxed">Drop any PDF file. Your document stays on your device the entire time.</p>
+          </div>
+          <div class="bg-[--surface] border border-[--border] p-5 rounded-xl">
+            <div class="text-2xl mb-3" aria-hidden="true">2️⃣</div>
+            <h3 class="font-bold text-sm mb-1">Choose your format</h3>
+            <p class="text-xs text-[--muted] leading-relaxed">Pick JPG for photos, PNG for sharp graphics, or WEBP for web use.</p>
+          </div>
+          <div class="bg-[--surface] border border-[--border] p-5 rounded-xl">
+            <div class="text-2xl mb-3" aria-hidden="true">3️⃣</div>
+            <h3 class="font-bold text-sm mb-1">Download as ZIP</h3>
+            <p class="text-xs text-[--muted] leading-relaxed">All pages are packaged into a single ZIP file and downloaded instantly.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="max-w-3xl mx-auto mt-14 md:mt-20 border-t border-[--border] pt-10 md:pt-12" aria-labelledby="faq-heading">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          <div class="md:col-span-1">
+            <h2 id="faq-heading" class="syne font-extrabold text-2xl md:text-3xl tracking-tight mb-4">Questions?</h2>
+            <ul class="space-y-3 text-sm font-medium text-[--muted]" role="list">
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> No data ever uploaded</li>
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> High-quality 2× rendering</li>
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> All pages, one ZIP file</li>
+            </ul>
+          </div>
+          <div class="md:col-span-2 space-y-3">
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h3 class="font-bold text-sm md:text-base">Is my PDF secure during conversion?</h3>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">Yes. FlappyPDF uses PDF.js, which renders your PDF entirely inside your browser. Your document is never sent to a server — it stays on your device from start to finish.</p>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h3 class="font-bold text-sm md:text-base">What's the difference between JPG, PNG, and WEBP?</h3>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">JPG is best for photos and documents with lots of colour — small file size. PNG is lossless, ideal for sharp text, diagrams, or anything needing transparency. WEBP gives the best balance of quality and small file size, perfect for web use.</p>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h3 class="font-bold text-sm md:text-base">What image quality will I get?</h3>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">Pages are rendered at 2× resolution (scale factor 2), which produces sharp, high-quality images suitable for printing and sharing. Typical output is 150–200 DPI equivalent per page.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Cross-Promo -->
+      <section class="max-w-3xl mx-auto my-14 md:my-20" aria-labelledby="other-tools-heading">
+        <h3 id="other-tools-heading" class="syne font-extrabold text-xl md:text-2xl tracking-tight mb-6">Other Free Tools</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <a href="img-to-pdf.html" class="bg-[--surface] border border-[--border] hover:border-amber-500/30 p-5 rounded-xl transition-all group">
+            <div class="text-xl mb-2" aria-hidden="true">🖼️</div>
+            <h4 class="font-bold text-sm mb-1 group-hover:text-amber-400 transition-colors">Images to PDF</h4>
+            <p class="text-xs text-[--muted]">Combine JPG, PNG, or WEBP images into a single PDF.</p>
+          </a>
+          <div class="bg-[--surface]/40 border border-[--border] p-5 rounded-xl opacity-60 relative overflow-hidden">
+            <div class="absolute right-3 top-3 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded text-[--accent] bg-[--surface2] border border-[--border]">Soon</div>
+            <div class="text-xl mb-2" aria-hidden="true">🔒</div>
+            <h4 class="font-bold text-sm mb-1">Password Protect PDF</h4>
+            <p class="text-xs text-[--muted]">Lock any PDF with a password, locally in your browser.</p>
+          </div>
+          <div class="bg-[--surface]/40 border border-[--border] p-5 rounded-xl opacity-60 relative overflow-hidden">
+            <div class="absolute right-3 top-3 text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded text-[--accent] bg-[--surface2] border border-[--border]">Soon</div>
+            <div class="text-xl mb-2" aria-hidden="true">📉</div>
+            <h4 class="font-bold text-sm mb-1">Compress PDF</h4>
+            <p class="text-xs text-[--muted]">Reduce PDF file size without visible quality loss.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Right Ad -->
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+  </div>
+
+  <footer class="border-t border-[--border] py-6 text-center text-xs text-[--muted] font-medium mt-auto bg-[#0d0d0f]">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 px-4">
+      <span>&copy; 2026 FlappyPDF. All rights reserved.</span>
+      <a href="privacy.html" class="hover:text-[--text] transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-[--text] transition-colors">Terms of Use</a>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
+  <script>
+    const MAX_FILE_SIZE = 150 * 1024 * 1024; // 150MB
+
+    // Set up PDF.js worker with fallback
+    try {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    } catch(e) {
+      console.warn('PDF.js worker setup failed:', e);
+    }
+
+    let targetPdfFile = null;
+    let selectedFormat = 'jpeg';
+
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const actionPanel = document.getElementById('action-panel');
+    const pdfFileName = document.getElementById('pdf-file-name');
+    const pdfPageCount = document.getElementById('pdf-page-count');
+    const convertBtn = document.getElementById('convert-btn');
+    const cancelBtn = document.getElementById('cancel-btn');
+    const progressContainer = document.getElementById('progress-container');
+    const progressBar = document.getElementById('progress-bar');
+    const progressText = document.getElementById('progress-text');
+    const formatSwitchBox = document.getElementById('format-switch-box');
+
+    function showToast(msg, type = '') {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.className = `toast ${type} show`;
+      setTimeout(() => { toast.className = `toast ${type}`; }, 3500);
+    }
+
+    // Format switch
+    formatSwitchBox.addEventListener('click', (e) => {
+      const option = e.target.closest('.switch-option');
+      if (!option) return;
+      formatSwitchBox.querySelectorAll('.switch-option').forEach(el => {
+        el.classList.remove('active');
+        el.setAttribute('aria-checked', 'false');
+      });
+      option.classList.add('active');
+      option.setAttribute('aria-checked', 'true');
+      selectedFormat = option.getAttribute('data-value');
+    });
+    formatSwitchBox.addEventListener('keydown', (e) => {
+      const option = e.target.closest('.switch-option');
+      if (option && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); option.click(); }
+    });
+
+    // Mouse glow
+    dropZone.addEventListener('mousemove', (e) => {
+      const rect = dropZone.getBoundingClientRect();
+      dropZone.style.setProperty('--x', `${e.clientX - rect.left}px`);
+      dropZone.style.setProperty('--y', `${e.clientY - rect.top}px`);
+    });
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    fileInput.addEventListener('change', (e) => loadPdfFile(e.target.files[0]));
+
+    ['dragenter', 'dragover'].forEach(name => {
+      dropZone.addEventListener(name, (e) => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+    });
+    ['dragleave', 'drop'].forEach(name => {
+      dropZone.addEventListener(name, (e) => { e.preventDefault(); dropZone.classList.remove('drag-over'); });
+    });
+    dropZone.addEventListener('drop', (e) => { e.preventDefault(); loadPdfFile(e.dataTransfer.files[0]); });
+    cancelBtn.addEventListener('click', resetPageUI);
+    convertBtn.addEventListener('click', processPdfToImages);
+
+    async function loadPdfFile(file) {
+      if (!file) return;
+      if (file.type !== 'application/pdf') {
+        showToast('Please upload a valid PDF file.', 'error');
+        return;
+      }
+      if (file.size > MAX_FILE_SIZE) {
+        showToast('File is too large. Please use a PDF under 150MB.', 'error');
+        return;
+      }
+
+      targetPdfFile = file;
+      pdfFileName.textContent = file.name;
+      pdfPageCount.textContent = 'Reading PDF…';
+      actionPanel.classList.remove('hidden');
+
+      try {
+        const pdf = await pdfjsLib.getDocument({ data: await file.arrayBuffer() }).promise;
+        pdfPageCount.textContent = `${pdf.numPages} page${pdf.numPages !== 1 ? 's' : ''} found`;
+      } catch (err) {
+        pdfPageCount.textContent = 'Could not read this PDF.';
+        showToast('This file could not be read. Make sure it is a valid PDF.', 'error');
+      }
+    }
+
+    async function processPdfToImages() {
+      if (!targetPdfFile) return;
+      convertBtn.disabled = true;
+      cancelBtn.disabled = true;
+      convertBtn.textContent = 'Extracting…';
+      progressContainer.classList.remove('hidden');
+
+      const mimeType = `image/${selectedFormat}`;
+      const ext = selectedFormat === 'jpeg' ? 'jpg' : selectedFormat;
+
+      try {
+        const pdf = await pdfjsLib.getDocument({ data: await targetPdfFile.arrayBuffer() }).promise;
+        const total = pdf.numPages;
+        const zip = new JSZip();
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const progressEl = document.querySelector('[role="progressbar"]');
+
+        for (let i = 1; i <= total; i++) {
+          const pct = Math.round((i / total) * 100);
+          progressBar.style.width = `${pct}%`;
+          if (progressEl) progressEl.setAttribute('aria-valuenow', pct);
+          progressText.textContent = `Converting page ${i} of ${total}…`;
+
+          const page = await pdf.getPage(i);
+          const viewport = page.getViewport({ scale: 2.0 });
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          // Clear canvas between pages (prevents ghost artifacts)
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          await page.render({ canvasContext: ctx, viewport }).promise;
+
+          const quality = selectedFormat === 'png' ? 1.0 : 0.92;
+          const base64Data = canvas.toDataURL(mimeType, quality).split(',')[1];
+          zip.file(`page_${String(i).padStart(3,'0')}.${ext}`, base64Data, { base64: true });
+        }
+
+        progressText.textContent = 'Packing ZIP file…';
+        const blob = await zip.generateAsync({ type: 'blob' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `${targetPdfFile.name.replace('.pdf', '')}_images.zip`;
+        link.click();
+        URL.revokeObjectURL(link.href);
+        showToast(`✓ ${total} image${total !== 1 ? 's' : ''} downloaded!`, 'success');
+
+      } catch (err) {
+        console.error(err);
+        showToast('Conversion failed. Please check your file and try again.', 'error');
+      } finally {
+        convertBtn.disabled = false;
+        cancelBtn.disabled = false;
+        convertBtn.textContent = 'Extract Images 🚀';
+        progressContainer.classList.add('hidden');
+        progressBar.style.width = '0%';
+      }
+    }
+
+    function resetPageUI() {
+      targetPdfFile = null;
+      fileInput.value = '';
+      actionPanel.classList.add('hidden');
+      progressContainer.classList.add('hidden');
+      progressBar.style.width = '0%';
+    }
+
+    function toggleFaq(el) {
+      const isOpen = el.classList.toggle('open');
+      el.setAttribute('aria-expanded', isOpen);
+    }
+  </script>
+</body>
+</html>

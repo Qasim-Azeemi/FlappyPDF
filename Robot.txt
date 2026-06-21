@@ -1,0 +1,27 @@
+# ==========================================================================
+# FlappyPDF — Robots.txt Framework
+# Optimized for Search Engine Crawlers & Indexing Strategy
+# Last Updated: June 15, 2026
+# ==========================================================================
+
+User-agent: *
+
+# Allowed Content Paths (Core Multi-Tool Ecosystem)
+Allow: /
+Allow: /index.html
+Allow: /img-to-pdf.html
+Allow: /pdf-to-img.html
+Allow: /privacy.html
+Allow: /terms.html
+
+# Prohibited Directories (Backend Architecture & Private Configurations)
+Disallow: /api/
+Disallow: /config/
+Disallow: /admin/
+Disallow: /cdn-cgi/
+
+# Crawl-Delay Optimization for Legacy Engines
+Crawl-delay: 1
+
+# Link to the Verified XML Sitemap 
+Sitemap: https://www.flappypdf.com/sitemap.xml

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FlappyPDF — Free Online PDF & Image Converter Tools</title>
+  <meta name="description" content="Free online PDF tools that run 100% in your browser. Convert images to PDF or PDF to images instantly — no uploads, no sign-up, completely private." />
+  <meta name="keywords" content="image to PDF, PDF to image, free PDF converter, convert JPG to PDF, convert PNG to PDF, PDF to JPG, PDF to PNG, online PDF tool, browser PDF converter" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.flappypdf.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.flappypdf.com/" />
+  <meta property="og:title" content="FlappyPDF — Free Online PDF & Image Converter" />
+  <meta property="og:description" content="Convert images to PDF or PDF to images instantly in your browser. 100% private — your files never leave your device." />
+  <meta property="og:image" content="https://www.flappypdf.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FlappyPDF — Free Online PDF & Image Converter" />
+  <meta name="twitter:description" content="Convert images to PDF or PDF to images instantly. No uploads, no sign-up, 100% private." />
+  <meta name="twitter:image" content="https://www.flappypdf.com/og-image.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐦</text></svg>" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "FlappyPDF",
+    "url": "https://www.flappypdf.com",
+    "description": "Free online PDF and image conversion tools that run entirely in your browser.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://www.flappypdf.com/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="styles.css" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://www.flappypdf.com/#website",
+      "url": "https://www.flappypdf.com/",
+      "name": "FlappyPDF",
+      "description": "Free online PDF tools that run 100% in your browser. Convert images to PDF or PDF to images instantly.",
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://www.flappypdf.com/#webapp",
+      "url": "https://www.flappypdf.com/",
+      "name": "FlappyPDF Document Utilities Suite",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires a modern web browser (Chrome, Firefox, Safari, Edge).",
+      "description": "A privacy-first, decentralized suite of file conversion utilities that handles document and image formatting natively in your browser sandbox.",
+      "applicationSubCategory": "PDF and Image Converter Suite",
+      "mainEntityOfPage": "https://www.flappypdf.com/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "100% Client-side Processing",
+        "Zero-upload Privacy Policy",
+        "Convert Images to PDF",
+        "Extract Pages from PDF to Image formats"
+      ]
+    }
+  ]
+}
+</script>
+
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <div class="blob w-[500px] h-[500px] bg-[--accent] top-[-100px] left-[-100px]"></div>
+  <div class="blob w-[500px] h-[500px] bg-[--accent2] bottom-[100px] right-[-100px]"></div>
+
+  <nav class="border-b border-[rgba(255,255,255,0.07)] bg-[#0d0d0f]/80 backdrop-blur-xl sticky top-0 z-50 px-4 md:px-12 py-4 flex items-center justify-between">
+    <a href="index.html" class="syne font-extrabold text-xl md:text-2xl tracking-tight flex items-center gap-2.5">
+      <div class="w-8 h-8 md:w-9 md:h-9 bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl flex items-center justify-center text-base md:text-lg shadow-lg">🐦</div>
+      Flappy<span class="text-[--accent]">PDF</span>
+    </a>
+    <span class="text-xs bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Free Forever</span>
+  </nav>
+
+  <div class="page-wrapper flex-grow w-full px-2 md:px-4 mt-8 md:mt-12">
+
+    <!-- Left Ad Column -->
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-col relative z-10 px-2 sm:px-4">
+
+      <header class="text-center max-w-2xl mx-auto mb-12 md:mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 text-[--text] rounded-full text-xs font-semibold uppercase tracking-wider mb-4">
+          🔒 Your files never leave your device
+        </div>
+        <h1 class="syne font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 leading-tight">
+          Convert Anything,<br>
+          <span class="bg-gradient-to-r from-[--accent] via-orange-400 to-[--accent2] bg-clip-text text-transparent">Beautifully and Privately.</span>
+        </h1>
+        <p class="text-[--muted] text-sm md:text-base leading-relaxed">
+          Free PDF tools that run entirely in your browser. No uploads, no accounts, no tracking — just fast, private file conversion.
+        </p>
+      </header>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+
+        <a href="img-to-pdf.html" class="tool-card rounded-2xl p-6 md:p-8 flex flex-col justify-between group" aria-label="Images to PDF converter">
+          <div>
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-[--surface2] border border-[--border] rounded-xl flex items-center justify-center text-xl md:text-2xl mb-5 md:mb-6 group-hover:scale-105 transition-transform duration-300">🖼️</div>
+            <h2 class="syne font-extrabold text-xl md:text-2xl text-[--text] mb-2 group-hover:text-[--accent] transition-colors">Images to PDF</h2>
+            <p class="text-sm text-[--muted] leading-relaxed mb-5 md:mb-6">
+              Combine JPG, PNG, or WEBP images into a single, clean PDF — in the order you choose.
+            </p>
+          </div>
+          <div class="flex items-center text-xs font-bold uppercase tracking-wider text-[--accent] gap-1 group-hover:gap-2 transition-all">
+            Convert Now <span aria-hidden="true">→</span>
+          </div>
+        </a>
+
+        <a href="pdf-to-img.html" class="tool-card rounded-2xl p-6 md:p-8 flex flex-col justify-between group" aria-label="PDF to Images converter">
+          <div>
+            <div class="w-12 h-12 md:w-14 md:h-14 bg-[--surface2] border border-[--border] rounded-xl flex items-center justify-center text-xl md:text-2xl mb-5 md:mb-6 group-hover:scale-105 transition-transform duration-300">📄</div>
+            <h2 class="syne font-extrabold text-xl md:text-2xl text-[--text] mb-2 group-hover:text-[--accent2] transition-colors">PDF to Images</h2>
+            <p class="text-sm text-[--muted] leading-relaxed mb-5 md:mb-6">
+              Extract every page from a PDF as a high-quality JPG, PNG, or WEBP image file.
+            </p>
+          </div>
+          <div class="flex items-center text-xs font-bold uppercase tracking-wider text-[--accent2] gap-1 group-hover:gap-2 transition-all">
+            Convert Now <span aria-hidden="true">→</span>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- Why Section -->
+      <section class="max-w-3xl mx-auto mt-16 md:mt-24" aria-labelledby="why-heading">
+        <div class="grid grid-cols-1  gap-8 md:gap-12 border-t border-[--border] pt-10 md:pt-12">
+          <div class="md:col-span-1">
+            <h2 id="why-heading" class="syne font-extrabold text-2xl md:text-3xl tracking-tight text-[--text] mb-4">Why FlappyPDF?</h2>
+            <p class="text-sm text-[--muted] leading-relaxed mb-4">
+              Most online converters upload your files to remote servers. FlappyPDF works completely inside your browser — nothing is ever sent anywhere.
+            </p>
+            <ul class="space-y-3 mt-6 text-sm font-medium text-[--muted]" role="list">
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> Converts instantly — no waiting</li>
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> Zero data collected or stored</li>
+              <li class="flex items-center gap-3"><span class="text-[--accent]" aria-hidden="true">✓</span> Free with no file limits</li>
+            </ul>
+          </div>
+
+          <div class="md:col-span-2 space-y-3">
+            <h3 class="syne font-bold text-xl mb-4">Frequently Asked Questions</h3>
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h4 class="font-bold text-sm md:text-base">How does FlappyPDF work without uploading files?</h4>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">FlappyPDF uses PDF.js and pdf-lib — JavaScript libraries that run directly in your browser. Your files are processed using your own device's memory and CPU, so nothing is ever transmitted to a server.</p>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h4 class="font-bold text-sm md:text-base">Will my images be resized or compressed?</h4>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">No. Images are embedded at their original dimensions and resolution. Each PDF page is sized to match its image exactly, so there's no cropping, stretching, or quality loss.</p>
+              </div>
+            </div>
+
+            <div class="faq-item rounded-xl p-4 md:p-5 cursor-pointer" onclick="toggleFaq(this)" role="button" aria-expanded="false" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')toggleFaq(this)">
+              <div class="flex justify-between items-center gap-4">
+                <h4 class="font-bold text-sm md:text-base">Is there a file size or page count limit?</h4>
+                <span class="faq-icon text-[--muted] transition-transform duration-300 shrink-0" aria-hidden="true">▼</span>
+              </div>
+              <div class="faq-answer">
+                <p class="mt-3 text-xs md:text-sm text-[--muted] leading-relaxed">There's no hard limit set by FlappyPDF, but very large files (over 100MB) may be slow depending on your device's memory. For best results, we recommend keeping total file size under 150MB.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Coming Soon -->
+      <section class="max-w-3xl mx-auto my-16 md:my-24" aria-labelledby="coming-soon-heading">
+        <h3 id="coming-soon-heading" class="syne font-extrabold text-xl md:text-2xl tracking-tight mb-6">Coming Soon</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-[--surface]/40 border border-[--border] p-5 rounded-xl opacity-60 relative overflow-hidden">
+            <div class="absolute right-3 top-3 bg-[--surface2] border border-[--border] text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded text-[--accent]">Soon</div>
+            <div class="text-xl mb-2" aria-hidden="true">🔒</div>
+            <h4 class="font-bold text-sm mb-1">Password Protect PDF</h4>
+            <p class="text-xs text-[--muted]">Add a password to any PDF, entirely in your browser.</p>
+          </div>
+          <div class="bg-[--surface]/40 border border-[--border] p-5 rounded-xl opacity-60 relative overflow-hidden">
+            <div class="absolute right-3 top-3 bg-[--surface2] border border-[--border] text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded text-[--accent]">Soon</div>
+            <div class="text-xl mb-2" aria-hidden="true">📉</div>
+            <h4 class="font-bold text-sm mb-1">Compress PDF</h4>
+            <p class="text-xs text-[--muted]">Reduce PDF file size without visible quality loss.</p>
+          </div>
+          <div class="bg-[--surface]/40 border border-[--border] p-5 rounded-xl opacity-60 relative overflow-hidden">
+            <div class="absolute right-3 top-3 bg-[--surface2] border border-[--border] text-[8px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded text-[--accent]">Soon</div>
+            <div class="text-xl mb-2" aria-hidden="true">✂️</div>
+            <h4 class="font-bold text-sm mb-1">Merge & Split PDF</h4>
+            <p class="text-xs text-[--muted]">Combine multiple PDFs or split one into separate files.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Right Ad Column -->
+    <aside class="ad-col" aria-label="Advertisement">
+      <div class="ad-unit ad-unit-tall">Ad<br/>160×300</div>
+      <div class="ad-unit ad-unit-sq">Ad<br/>160×160</div>
+    </aside>
+
+  </div>
+
+  <footer class="border-t border-[--border] py-6 text-center text-xs text-[--muted] font-medium mt-auto bg-[#0d0d0f]">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 px-4">
+      <span>&copy; 2026 FlappyPDF. All rights reserved.</span>
+      <a href="privacy.html" class="hover:text-[--text] transition-colors">Privacy Policy</a>
+      <a href="terms.html" class="hover:text-[--text] transition-colors">Terms of Use</a>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${e.clientY - rect.top}px`);
+      });
+    });
+
+    function toggleFaq(el) {
+      const isOpen = el.classList.toggle('open');
+      el.setAttribute('aria-expanded', isOpen);
+    }
+  </script>
+</body>
+</html>
